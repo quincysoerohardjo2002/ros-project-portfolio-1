@@ -1,0 +1,45 @@
+<launch>
+    <arg name="veh" default="joepduckiebot"/>
+
+    <!-- ================================================================
+         LINE DETECTOR NODE — Perception
+         Based on the Duckietown demo's line_detector_node + lane_filter_node.
+         Detects white/yellow lane lines using HSV + Canny + Hough segments,
+         then estimates the lane pose (d, phi).
+         ================================================================ -->
+    <node
+        pkg="lane_following"
+        type="line_detector_node.py"
+        name="line_detector_node"
+        output="screen"
+        ns="$(arg veh)">
+        <!-- camera input -->
+        <remap from="~image/compressed"
+               to="/$(arg veh)/camera_node/image/compressed"/>
+        <!-- lane pose output (consumed by lane_controller_node) -->
+        <remap from="~lane_pose"
+               to="/$(arg veh)/lane_filter_node/lane_pose"/>
+        <!-- debug image output -->
+        <remap from="~debug/segments/compressed"
+               to="/$(arg veh)/line_detector_node/debug/segments/compressed"/>
+    </node>
+
+    <!-- ================================================================
+         LANE CONTROLLER NODE — Control
+         Based on the Duckietown demo's lane_controller_node.
+         PI controller that converts LanePose into wheel commands.
+         ================================================================ -->
+    <node
+        pkg="lane_following"
+        type="lane_controller_node.py"
+        name="lane_controller_node"
+        output="screen"
+        ns="$(arg veh)">
+        <!-- lane pose input (from line_detector_node) -->
+        <remap from="~lane_pose"
+               to="/$(arg veh)/lane_filter_node/lane_pose"/>
+        <!-- wheel command output -->
+        <remap from="~car_cmd"
+               to="/$(arg veh)/car_cmd_switch_node/cmd"/>
+    </node>
+</launch>

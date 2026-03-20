@@ -1,0 +1,12 @@
+<launch>
+    <arg name="veh" default="joepduckiebot"/>
+
+    <node
+        pkg="duckie_detection"
+        type="duckie_detection_node.py"
+        name="duckie_detection_node"
+        output="screen"
+        ns="$(arg veh)">
+        <param name="veh" value="$(arg veh)"/>
+    </node>
+</launch>

@@ -1,0 +1,12 @@
+<launch>
+    <arg name="veh" default="joepduckiebot"/>
+
+    <node
+        pkg="traffic_light_detection"
+        type="traffic_light_detection_node.py"
+        name="traffic_light_detection_node"
+        output="screen"
+        ns="$(arg veh)">
+        <param name="veh" value="$(arg veh)"/>
+    </node>
+</launch>

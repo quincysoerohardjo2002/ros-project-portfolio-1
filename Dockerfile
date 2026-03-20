@@ -1,7 +1,7 @@
 # parameters
-ARG REPO_NAME="<REPO_NAME_HERE>"
-ARG DESCRIPTION="<DESCRIPTION_HERE>"
-ARG MAINTAINER="<YOUR_FULL_NAME> (<YOUR_EMAIL_ADDRESS>)"
+ARG REPO_NAME="ros-project-portfolio-1"
+ARG DESCRIPTION="Portfolio 1 Selfdriving"
+ARG MAINTAINER="Quincy Soerohardjo (23002980@student.hhs.nl)"
 # pick an icon from: https://fontawesome.com/v4.7.0/icons/
 ARG ICON="cube"
 

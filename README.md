@@ -1,47 +1,40 @@
-# Template: template-ros
+# ros-project-portfolio-1
 
-This template provides a boilerplate repository
-for developing ROS-based software in Duckietown.
+Duckietown portfolio project — self-driving behaviours for **joepduckiebot**.
 
-**NOTE:** If you want to develop software that does not use
-ROS, check out [this template](https://github.com/duckietown/template-basic).
+Built on the official [template-ros](https://github.com/duckietown/template-ros) (DTProject v3).
 
+## Packages
 
-## How to use it
+| Package | Description | Status |
+|---|---|---|
+| `lane_following` | Detects lane markings and steers the Duckiebot to stay in-lane | 🔲 placeholder |
+| `traffic_light_detection` | Detects red/green traffic lights from the camera feed | 🔲 placeholder |
+| `duckie_detection` | Detects rubber duckies on the road and estimates distance | 🔲 placeholder |
 
-### 1. Fork this repository
+## Project structure
 
-Use the fork button in the top-right corner of the github page to fork this template repository.
+```
+packages/
+├── lane_following/          # Lane following node
+├── traffic_light_detection/ # Traffic light detection node
+└── duckie_detection/        # Duckie detection node
+launchers/
+└── default.sh               # Launches all three nodes
+```
 
+## Build & run
 
-### 2. Create a new repository
+```bash
+# Build the Docker image
+dts devel build -f
 
-Create a new repository on github.com while
-specifying the newly forked template repository as
-a template for your new repository.
+# Run on the virtual Duckiebot
+dts devel run -H joepduckiebot.local
+```
 
+## Dependencies
 
-### 3. Define dependencies
-
-List the dependencies in the files `dependencies-apt.txt` and
-`dependencies-py3.txt` (apt packages and pip packages respectively).
-
-
-### 4. Place your code
-
-Place your code in the directory `/packages/` of
-your new repository.
-
-
-### 5. Setup launchers
-
-The directory `/launchers` can contain as many launchers (launching scripts)
-as you want. A default launcher called `default.sh` must always be present.
-
-If you create an executable script (i.e., a file with a valid shebang statement)
-a launcher will be created for it. For example, the script file 
-`/launchers/my-launcher.sh` will be available inside the Docker image as the binary
-`dt-launcher-my-launcher`.
-
-When launching a new container, you can simply provide `dt-launcher-my-launcher` as
-command.
+- **Python 3**: `numpy` (OpenCV is provided by the Duckietown base image)
+- **Duckietown**: `dt-duckietown-msgs`
+- **ROS**: `rospy`, `std_msgs`, `sensor_msgs`, `duckietown_msgs`
